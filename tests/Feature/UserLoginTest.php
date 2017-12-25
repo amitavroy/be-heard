@@ -52,4 +52,36 @@ class UserLoginTest extends TestCase
             ->get(route('home'))
             ->assertRedirect(route('inactive'));
     }
+
+    /** @test */
+    public function user_when_logged_out_should_be_guest()
+    {
+        $postData = [
+            '_token' => csrf_token(),
+        ];
+
+        $this->actingAs($this->user)
+            ->post(route('logout'), $postData);
+
+        $this->get(route('home'))
+            ->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function wrong_credentials_should_show_errors()
+    {
+        factory(User::class)->create([
+            'email' => 'reachme@amitavroy.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $postData = [
+            'email' => 'wrong@gmail.com',
+            'password' => 'wron',
+        ];
+
+        $response = $this->post(route('login'), $postData);
+
+        $response->assertSessionHasErrors(['email']);
+    }
 }

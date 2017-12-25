@@ -18,6 +18,7 @@ Route::post('/login', 'Auth\LoginController@login')->name('do-login');
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('in-active', 'HomeController@getInactivePage')->name('inactive');
 
     /**
@@ -25,6 +26,5 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::group(['middleware' => ['user.status']], function () {
         Route::get('/home', 'HomeController@index')->name('home');
-        Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     });
 });

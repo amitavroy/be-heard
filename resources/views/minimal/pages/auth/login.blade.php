@@ -13,6 +13,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" name="email" id="email" class="form-control">
+                            <span class="bh error">{{$errors->first('email')}}</span>
                         </div>
 
                         <div class="form-group">
