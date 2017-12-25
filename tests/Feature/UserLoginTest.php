@@ -84,4 +84,22 @@ class UserLoginTest extends TestCase
 
         $response->assertSessionHasErrors(['email']);
     }
+
+    /** @test */
+    public function user_can_login_with_correct_credentials()
+    {
+        factory(User::class)->create([
+            'email' => 'reachme@amitavroy.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $postData = [
+            'email' => 'reachme@amitavroy.com',
+            'password' => 'password',
+        ];
+
+        $response = $this->post(route('login'), $postData);
+
+        $response->assertRedirect(route('home'));
+    }
 }
