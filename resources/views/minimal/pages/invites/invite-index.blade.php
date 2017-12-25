@@ -20,7 +20,7 @@
                                     <th>#</th>
                                     <th>Email</th>
                                     <th>Expires on</th>
-                                    <th>Status</th>
+                                    <th>Used</th>
                                 </tr>
                                 </thead>
 
@@ -30,7 +30,7 @@
                                         <td>{{$invite->id}}</td>
                                         <td>{{$invite->email}}</td>
                                         <td>{{$invite->expire_at->format('Y/m/d H:m:s')}}</td>
-                                        <td>{{$invite->status}}</td>
+                                        <td>{{($invite->used == '0') ? 'No' : 'Yes'}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

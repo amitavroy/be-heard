@@ -25,4 +25,8 @@ p {
     color: $brand-danger;
     font-size: 1rem;
   }
+  &.help-text {
+    color: $gray-dark;
+    font-size: 0.8rem;
+  }
 }
