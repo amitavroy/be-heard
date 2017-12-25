@@ -1,0 +1,10 @@
+The application will need to run a few workers in order to work properly
+
+# Running horizon
+php artisan horizon
+
+# Running queue workers
+php artisan queue:listen
+
+# Running the application
+php artisan serve

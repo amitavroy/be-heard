@@ -1,20 +1,21 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Jobs\PasswordResetConfirmation;
+use App\User;
+
+Route::get('temp', function () {
+    $user = User::find(1);
+    PasswordResetConfirmation::dispatch($user);
+});
 
 Route::get('/', 'GuestController@index')->name('index');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('do-login');
+Route::get('forgot-password', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('forgot-password');
+Route::post('forgot-password', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('do-forgot-password');
+Route::get('reset-password/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('reset-password', 'Auth\ResetPasswordController@reset')->name('password.request');
 
 Route::group(['middleware' => ['auth']], function () {
 

@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 col-md-push-3">
             <div class="panel panel-default">
-                <div class="panel-heading"><h1>Login</h1></div>
+                <div class="panel-heading"><h1>Forgot password</h1></div>
                 <div class="panel-body">
-                    <form action="{{route('login')}}" method="post">
+                    <form action="{{route('do-forgot-password')}}" method="post">
 
                         {{csrf_field()}}
 
@@ -17,20 +17,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="checkbox" name="remember"> Remember me
-                        </div>
-
-                        <div class="form-group">
                             <button class="btn btn-primary">
-                                Login
+                                Send Email
                             </button>
 
-                            <a href="{{route('forgot-password')}}">Forgot password</a>
+                            <a href="{{route('login')}}">Back to login</a>
                         </div>
 
                     </form>
