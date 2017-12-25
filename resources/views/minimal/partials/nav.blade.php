@@ -22,6 +22,9 @@
                 <li class="{{Route::is('home') ? 'active' : ''}}">
                     <a href="{{route('home')}}">Dashboard <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="{{Route::is('invite') ? 'active' : ''}}">
+                    <a href="{{route('invite')}}">Invites <span class="sr-only">(current)</span></a>
+                </li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

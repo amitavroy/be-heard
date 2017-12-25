@@ -1,0 +1,10 @@
+# Invite
+User should be able to invite multiple users - textarea with comma seperated values
+    - check if the email adress is already an entry in users table
+    - even if not active, invite should not go
+
+Email will be sent to each user to register - token based links
+    - link should expire (after a configured amount of time)
+
+User should also see a list of invites he has sent and that are still active
+    - if a user gets an invite, but later registers without invite then change the status

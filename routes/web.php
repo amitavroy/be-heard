@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
      * These routes are available only for activated users.
      */
     Route::group(['middleware' => ['user.status']], function () {
-        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('home', 'HomeController@index')->name('home');
+        Route::get('invite', 'InviteController@index')->name('invite');
     });
 });

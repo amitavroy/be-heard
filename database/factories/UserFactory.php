@@ -24,3 +24,13 @@ $factory->define(App\User::class, function (Faker $faker) {
         'active' => 1,
     ];
 });
+
+$factory->define(\App\Models\Invite::class, function (Faker $faker) {
+    return [
+        'email' => $faker->email,
+        'user_id' => factory(\App\User::class)->create()->id,
+        'token' => uniqid('invite'),
+        'expire_at' => \Carbon\Carbon::now()->addDays(7),
+        'used' => 0,
+    ];
+});
