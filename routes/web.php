@@ -1,13 +1,5 @@
 <?php
 
-use App\Jobs\PasswordResetConfirmation;
-use App\User;
-
-Route::get('temp', function () {
-    $user = User::find(1);
-    PasswordResetConfirmation::dispatch($user);
-});
-
 Route::get('/', 'GuestController@index')->name('index');
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
