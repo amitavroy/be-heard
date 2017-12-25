@@ -8,6 +8,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return 'Home';
+        return view('minimal.pages.home');
+    }
+
+    public function getInactivePage()
+    {
+        return view('minimal.pages.auth.inactive');
     }
 }

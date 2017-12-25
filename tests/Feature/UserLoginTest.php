@@ -50,6 +50,6 @@ class UserLoginTest extends TestCase
 
         $this->actingAs($inactiveUser)
             ->get(route('home'))
-            ->assertRedirect(route('index'));
+            ->assertRedirect(route('inactive'));
     }
 }

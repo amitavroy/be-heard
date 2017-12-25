@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="{{url('css/app.css')}}">
 </head>
 <body>
+    @include('minimal.partials.nav')
     <div class="container">
         @yield('content')
     </div>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
