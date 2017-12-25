@@ -65,7 +65,6 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse($response)
     {
-        logger('Sending email on confirmation');
         PasswordResetConfirmation::dispatch(Auth::user());
 
         return redirect($this->redirectPath())

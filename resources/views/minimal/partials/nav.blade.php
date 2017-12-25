@@ -8,14 +8,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Be Heard</a>
+            @if(Auth::user())
+                <a class="navbar-brand" href="{{route('home')}}">Be Heard</a>
+            @else
+                <a class="navbar-brand" href="{{route('index')}}">Be Heard</a>
+            @endif
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             @if(Auth::user())
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li class="{{Route::is('home') ? 'active' : ''}}">
+                    <a href="{{route('home')}}">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

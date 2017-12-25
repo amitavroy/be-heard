@@ -19,7 +19,6 @@ class PasswordResetConfirmMail extends Mailable implements ShouldQueue
      */
     public function __construct()
     {
-        logger('Mail constructor');
     }
 
     /**

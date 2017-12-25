@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class UserHasLoggedIn implements ShouldQueue
+class UserHasLoggedOut implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     /**
@@ -34,6 +34,6 @@ class UserHasLoggedIn implements ShouldQueue
      */
     public function handle()
     {
-        logger("User {$this->user->name} logged in");
+        logger("User {$this->user->name} logged out");
     }
 }
