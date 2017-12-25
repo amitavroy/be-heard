@@ -24,7 +24,7 @@ class SendInviteTest extends TestCase
     /** @test */
     public function a_guest_should_not_see_invite_page()
     {
-        $this->get('invite')->assertRedirect(route('login'));
+        $this->get(route('invite'))->assertRedirect(route('login'));
     }
 
     /** @test */
@@ -51,5 +51,20 @@ class SendInviteTest extends TestCase
         $this->actingAs($this->user)
             ->get(route('invite'))
             ->assertSeeText('no-reply@something.com');
+    }
+
+    /** @test */
+    public function a_guest_should_not_see_invite_add()
+    {
+        $this->get(route('invite.add'))->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function an_auth_user_should_see_invite_add_page()
+    {
+        $this->actingAs($this->user)
+            ->get(route('invite.add'))
+            ->assertStatus(200)
+            ->assertSeeText('Invite users');
     }
 }
