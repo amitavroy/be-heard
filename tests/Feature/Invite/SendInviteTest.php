@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Invite;
 
+use App\Mail\Invite\SendInvitationMail;
 use App\Models\Invite;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -66,5 +68,26 @@ class SendInviteTest extends TestCase
             ->get(route('invite.add'))
             ->assertStatus(200)
             ->assertSeeText('Invite users');
+    }
+
+    /** @test */
+    public function a_user_should_be_able_send_invites()
+    {
+        Mail::fake();
+
+        $postData = [
+            'emails' => 'randomname@gmail.com\r\nonemore@gmail.com\r\nlooper@gmail.com',
+        ];
+
+        $this->actingAs($this->user)
+            ->post(route('invite.save'), $postData)
+            ->assertRedirect(route('invite'));
+
+        Mail::assertQueued(SendInvitationMail::class, function ($mail) {
+            return $mail
+                ->hasTo('randomname@gmail.com');
+        });
+
+        Mail::assertQueued(SendInvitationMail::class, 3);
     }
 }
