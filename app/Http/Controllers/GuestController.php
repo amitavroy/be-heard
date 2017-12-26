@@ -10,4 +10,10 @@ class GuestController extends Controller
     {
         return view('welcome');
     }
+
+    public function test(Request $request)
+    {
+//        \Log::info($request->all());
+        \Log::info('hello');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'GuestController@index')->name('index');
+Route::post('/test', 'GuestController@test');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('do-login');
 Route::get('forgot-password', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('forgot-password');
