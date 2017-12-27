@@ -12,12 +12,8 @@ class SendInviteService
 {
     public function sendInvites(array $emails)
     {
-        try {
-            foreach ($emails as $email) {
-                $this->dispatch($email);
-            }
-        } catch (\Exception $exception) {
-            logger($exception->getMessage());
+        foreach ($emails as $email) {
+            $this->dispatch($email);
         }
 
         return true;
@@ -35,6 +31,8 @@ class SendInviteService
             'used' => 0,
         ]);
 
-        Mail::to($email)->queue(new SendInvitationMail($invite, $email));
+        $user = Auth::user();
+
+        Mail::to($email)->queue(new SendInvitationMail($invite, $user, $email));
     }
 }
