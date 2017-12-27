@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Invite;
 use App\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -67,5 +69,18 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function getInvitedPage($token)
+    {
+        if (!$invite = Invite::where('token', $token)->first()) {
+            abort('400', 'What are you looking for?');
+        }
+
+        if ($invite->expire_at < Carbon::now()) {
+            abort('400', 'The token has expired. You can request for a fresh invite.');
+        }
+
+        return $invite;
     }
 }

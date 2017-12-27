@@ -1,12 +1,17 @@
 <?php
 
 Route::get('/', 'GuestController@index')->name('index');
+
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('do-login');
+
 Route::get('forgot-password', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('forgot-password');
 Route::post('forgot-password', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('do-forgot-password');
+
 Route::get('reset-password/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('reset-password', 'Auth\ResetPasswordController@reset')->name('password.request');
+
+Route::get('user/register/{token}', 'Auth\RegisterController@getInvitedPage')->name('register.invited');
 
 Route::group(['middleware' => ['auth']], function () {
 
