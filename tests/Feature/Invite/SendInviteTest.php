@@ -115,6 +115,21 @@ class SendInviteTest extends TestCase
     }
 
     /** @test */
+    public function an_existing_user_cannot_be_invited()
+    {
+        // with one email address who is a user
+        // validation message should come up
+    }
+
+    /** @test */
+    public function one_user_in_many_emails_should_come_up()
+    {
+        // with multiple user email address
+        // and one user which already exist
+        // validation message should come
+    }
+
+    /** @test */
     public function a_user_with_valid_token_can_register()
     {
         $this->get(route('register.invited', $this->invite->token))
