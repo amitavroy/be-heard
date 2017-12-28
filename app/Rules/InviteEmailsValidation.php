@@ -2,11 +2,13 @@
 
 namespace App\Rules;
 
-use App\Models\Invite;
+use App\User;
 use Illuminate\Contracts\Validation\Rule;
 
 class InviteEmailsValidation implements Rule
 {
+    private $emails = [];
+
     /**
      * Create a new rule instance.
      *
@@ -14,7 +16,6 @@ class InviteEmailsValidation implements Rule
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -26,10 +27,14 @@ class InviteEmailsValidation implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
         if (isset($value)) {
             $emails = explode(",", $value);
-            $records  = Invite::whereIn('email',$emails)->get();
+            $records = User::whereIn('email', $emails)->get();
+
+            foreach ($records as $key => $value) {
+                $this->emails[] = $value->email;
+            }
+
             if (count($records) > 0) {
                 return false;
             }
@@ -45,6 +50,7 @@ class InviteEmailsValidation implements Rule
      */
     public function message()
     {
-        return ':attribute invite already present';
+        $string = implode(', ', $this->emails);
+        return "Following email address {$string} already exists.";
     }
 }
