@@ -12,7 +12,7 @@
 
                         <div class="form-group">
                             <label for="emails">Email address</label>
-                            <textarea name="emails" id="emails" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="emails" id="emails" cols="30" rows="10" class="form-control">{{old('emails')}}</textarea>
                             <span class="bh help-text">You can enter one email address per line</span>
                         </div>
 

@@ -30,7 +30,7 @@ class InviteController extends Controller
             'emails' => ['required', new InviteEmailsValidation]
         ]);
 
-        $emails = explode(PHP_EOL, $request->input('emails'));
+        $emails = explode(",", $request->input('emails'));
 
         foreach ($emails as $key => $email) {
             // code reference taken from stackoverflow

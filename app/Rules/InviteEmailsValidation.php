@@ -28,16 +28,10 @@ class InviteEmailsValidation implements Rule
     {
         //
         if (isset($value)) {
-            \Log::info("in if");
-            \Log::info($value);
             $emails = explode(",", $value);
-            \Log::info($emails);
-            foreach ($emails as $email) {
-                $found = Invite::where('email', '=', $email)->first();
-                \Log::info($found);
-                if ($found) {
-                    return false;
-                }
+            $records  = Invite::whereIn('email',$emails)->get();
+            if (count($records) > 0) {
+                return false;
             }
             return true;
         }
