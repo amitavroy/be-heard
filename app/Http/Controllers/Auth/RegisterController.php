@@ -6,6 +6,8 @@ use App\Models\Invite;
 use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -71,7 +73,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function getInvitedPage($token)
+    public function getInvitedPage($token, Request $request)
     {
         if (!$invite = Invite::where('token', $token)->first()) {
             abort('400', 'What are you looking for?');
@@ -81,6 +83,42 @@ class RegisterController extends Controller
             abort('400', 'The token has expired. You can request for a fresh invite.');
         }
 
-        return $invite;
+        $request->session()->forget('invite');
+        $request->session()->put('invite', $invite->token);
+
+        return view('minimal.pages.auth.user-register')
+            ->with('invite', $invite);
+    }
+
+    public function saveUser(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|min:3',
+            'password' => 'required|min:6',
+            'c_password' => 'required|min:6|same:password',
+        ]);
+
+        $token = $request->session()->get('invite');
+
+        if (!$invite = Invite::where('token', $token)->first()) {
+            abort('400', 'What are you looking for?');
+        }
+
+        $request->session()->forget('invite');
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $invite->email,
+            'password' => bcrypt($validatedData['password']),
+            'active' => 1
+        ]);
+
+        $invite->used = 1;
+        $invite->save();
+
+        Auth::loginUsingId($user->id);
+
+        flash('Welcome to Be-heard');
+        return redirect(route('home'));
     }
 }

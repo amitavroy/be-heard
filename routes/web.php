@@ -12,6 +12,7 @@ Route::get('reset-password/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('reset-password', 'Auth\ResetPasswordController@reset')->name('password.request');
 
 Route::get('user/register/{token}', 'Auth\RegisterController@getInvitedPage')->name('register.invited');
+Route::post('user/register/save', 'Auth\RegisterController@saveUser')->name('register.save');
 
 Route::group(['middleware' => ['auth']], function () {
 

@@ -126,7 +126,7 @@ class SendInviteTest extends TestCase
     {
         // with multiple user email address
         // and one user which already exist
-        // validation message should come 
+        // validation message should come
     }
 
     /** @test */
