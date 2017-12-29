@@ -39,6 +39,4 @@ class UserRegistSuccessful implements ShouldQueue
         Mail::to($this->user)
             ->queue(new RegistrationSuccessMail($this->user));
     }
-
-
 }
