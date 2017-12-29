@@ -2,10 +2,13 @@
 
 namespace Tests\Feature\Invite;
 
+use App\Jobs\User\UserHasLoggedIn;
+use App\Mail\Invite\RegistrationSuccessMail;
 use App\Mail\Invite\SendInvitationMail;
 use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Tests\TestHelper;
@@ -153,5 +156,49 @@ class SendInviteTest extends TestCase
         $this->get(route('register.invited', $invite->token))
             ->assertSee('The token has expired. You can request for a fresh invite.')
             ->assertStatus(400);
+    }
+
+    /** @test */
+    public function guest_should_see_registration_form()
+    {
+        $invite = $this->invite;
+
+        $this->get(route('register.invited', $invite->token))
+            ->assertStatus(200)
+            ->assertSee($invite->email);
+    }
+
+    /** @test */
+    public function registration_without_data_should_show_errors()
+    {
+        $postData = [];
+
+        $this->post(route('register.save'), $postData)
+            ->assertSessionHasErrors(['name', 'password', 'c_password']);
+    }
+
+    /** @test */
+    public function user_should_be_able_to_register_with_correct_data()
+    {
+        Mail::fake();
+        Event::fake();
+
+        $invite = factory(Invite::class)->create([
+            'expire_at' => Carbon::now()->addDays(2),
+        ]);
+
+        $postData = [
+            'name' => 'Be Heard',
+            'password' => 'password1',
+            'c_password' => 'password1'
+        ];
+
+        $this->withSession(['invite' => $invite->token])
+            ->post(route('register.save'), $postData)
+            ->assertRedirect(route('home'));
+
+//        Event::assertDispatched(UserHasLoggedIn::class);
+//        Event::assertDispatched(UserRegistSuccessful::class);
+        Mail::assertQueued(RegistrationSuccessMail::class, 1);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Jobs\User\UserHasLoggedIn;
+use App\Jobs\User\UserRegistSuccessful;
+use App\Mail\Invite\InvitedUserRegistered;
 use App\Models\Invite;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -117,6 +120,8 @@ class RegisterController extends Controller
         $invite->save();
 
         Auth::loginUsingId($user->id);
+        UserHasLoggedIn::dispatch($user);
+        UserRegistSuccessful::dispatch($user);
 
         flash('Welcome to Be-heard');
         return redirect(route('home'));
