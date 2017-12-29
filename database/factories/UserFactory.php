@@ -34,3 +34,14 @@ $factory->define(\App\Models\Invite::class, function (Faker $faker) {
         'used' => 0,
     ];
 });
+
+$factory->define(\App\Conversation::class, function (Faker $faker) {
+    return [
+        'title' => $faker->sentence(6),
+        'creator' => factory(\App\User::class)->create()->id,
+        'body' => $faker->sentence(20),
+        'expire_at' => \Illuminate\Support\Carbon::now()->addDays($faker->randomNumber()),
+        'published' => 1,
+        'sticky' => 0,
+    ];
+});

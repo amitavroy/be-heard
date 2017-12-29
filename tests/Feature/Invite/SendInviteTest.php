@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Invite;
 
-use App\Jobs\User\UserHasLoggedIn;
 use App\Mail\Invite\RegistrationSuccessMail;
 use App\Mail\Invite\SendInvitationMail;
 use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Tests\TestHelper;
@@ -181,7 +179,6 @@ class SendInviteTest extends TestCase
     public function user_should_be_able_to_register_with_correct_data()
     {
         Mail::fake();
-        Event::fake();
 
         $invite = factory(Invite::class)->create([
             'expire_at' => Carbon::now()->addDays(2),
@@ -197,8 +194,6 @@ class SendInviteTest extends TestCase
             ->post(route('register.save'), $postData)
             ->assertRedirect(route('home'));
 
-//        Event::assertDispatched(UserHasLoggedIn::class);
-//        Event::assertDispatched(UserRegistSuccessful::class);
         Mail::assertQueued(RegistrationSuccessMail::class, 1);
     }
 }
