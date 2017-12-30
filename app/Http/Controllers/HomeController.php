@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('minimal.pages.home');
+        $categories = Category::dashboardListing();
+
+        return view('minimal.pages.home')
+            ->with('categogies', $categories);
     }
 
     public function getInactivePage()

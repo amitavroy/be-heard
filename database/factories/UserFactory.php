@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +36,18 @@ $factory->define(\App\Models\Invite::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\App\Conversation::class, function (Faker $faker) {
+$factory->define(\App\Models\Category::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(\App\Models\Conversation::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(6),
         'creator' => factory(\App\User::class)->create()->id,
         'body' => $faker->sentence(20),
-        'expire_at' => \Illuminate\Support\Carbon::now()->addDays($faker->randomNumber()),
+        'expire_at' => Carbon::now()->addDays($faker->numberBetween(1,9)),
         'published' => 1,
         'sticky' => 0,
     ];
