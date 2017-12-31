@@ -30,3 +30,29 @@ p {
     font-size: 0.8rem;
   }
 }
+
+.circle {
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  @extend .circle;
+  background-color: $brand-danger;
+}
+
+/*Conversation*/
+.conversations {
+  .conversation {
+    &.teaser {
+      border-top: 1px solid $gray-lighter;
+    }
+  }
+}

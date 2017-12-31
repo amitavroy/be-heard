@@ -3,12 +3,13 @@
 namespace App;
 
 use App\Models\Conversation;
+use App\Models\Presenters\UserPresenter;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, UserPresenter;
 
     /**
      * The attributes that are mass assignable.

@@ -1405,8 +1405,8 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  color: #636b6f;
-  background-color: #f5f8fa;
+  color: #222;
+  background-color: #fff;
 }
 
 input,
@@ -1455,7 +1455,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.6;
-  background-color: #f5f8fa;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -3054,7 +3054,7 @@ th {
 }
 
 .table .table {
-  background-color: #f5f8fa;
+  background-color: #fff;
 }
 
 .table-condensed > thead > tr > th,
@@ -3354,7 +3354,7 @@ output {
   color: #555555;
   background-color: #fff;
   background-image: none;
-  border: 1px solid #ccd0d2;
+  border: 1px solid #888888;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -3373,16 +3373,16 @@ output {
 }
 
 .form-control::-moz-placeholder {
-  color: #b1b7ba;
+  color: #6f6e6e;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #b1b7ba;
+  color: #6f6e6e;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #b1b7ba;
+  color: #6f6e6e;
 }
 
 .form-control::-ms-expand {
@@ -3840,7 +3840,7 @@ select[multiple].input-lg,
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #a4aaae;
+  color: #626262;
 }
 
 @media (min-width: 768px) {
@@ -3994,7 +3994,7 @@ select[multiple].input-lg,
 .btn:hover,
 .btn:focus,
 .btn.focus {
-  color: #636b6f;
+  color: #222;
   text-decoration: none;
 }
 
@@ -4022,20 +4022,20 @@ fieldset[disabled] a.btn {
 }
 
 .btn-default {
-  color: #636b6f;
+  color: #222;
   background-color: #fff;
   border-color: #ccc;
 }
 
 .btn-default:focus,
 .btn-default.focus {
-  color: #636b6f;
+  color: #222;
   background-color: #e6e5e5;
   border-color: #8c8c8c;
 }
 
 .btn-default:hover {
-  color: #636b6f;
+  color: #222;
   background-color: #e6e5e5;
   border-color: #adadad;
 }
@@ -4043,7 +4043,7 @@ fieldset[disabled] a.btn {
 .btn-default:active,
 .btn-default.active,
 .open > .btn-default.dropdown-toggle {
-  color: #636b6f;
+  color: #222;
   background-color: #e6e5e5;
   border-color: #adadad;
 }
@@ -4057,7 +4057,7 @@ fieldset[disabled] a.btn {
 .open > .btn-default.dropdown-toggle:hover,
 .open > .btn-default.dropdown-toggle:focus,
 .open > .btn-default.dropdown-toggle.focus {
-  color: #636b6f;
+  color: #222;
   background-color: #d4d4d4;
   border-color: #8c8c8c;
 }
@@ -4083,7 +4083,7 @@ fieldset[disabled] .btn-default.focus {
 
 .btn-default .badge {
   color: #fff;
-  background-color: #636b6f;
+  background-color: #222;
 }
 
 .btn-primary {
@@ -4972,7 +4972,7 @@ tbody.collapse.in {
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #ccd0d2;
+  border: 1px solid #888888;
   border-radius: 4px;
 }
 
@@ -5145,7 +5145,7 @@ tbody.collapse.in {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #f5f8fa;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -5246,7 +5246,7 @@ tbody.collapse.in {
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #f5f8fa;
+    border-bottom-color: #fff;
   }
 }
 
@@ -5689,7 +5689,7 @@ tbody.collapse.in {
 
 .navbar-default {
   background-color: #fff;
-  border-color: #d3e0e9;
+  border-color: #e6e5e5;
 }
 
 .navbar-default .navbar-brand {
@@ -5745,7 +5745,7 @@ tbody.collapse.in {
 
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #d3e0e9;
+  border-color: #e6e5e5;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -6314,7 +6314,7 @@ a.badge:focus {
   padding: 4px;
   margin-bottom: 22px;
   line-height: 1.6;
-  background-color: #f5f8fa;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -6332,7 +6332,7 @@ a.badge:focus {
 
 .thumbnail .caption {
   padding: 9px;
-  color: #636b6f;
+  color: #222;
 }
 
 a.thumbnail:hover,
@@ -6596,7 +6596,7 @@ a.thumbnail.active {
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
-  border: 1px solid #d3e0e9;
+  border: 1px solid #e6e5e5;
 }
 
 .list-group-item:first-child {
@@ -6879,7 +6879,7 @@ button.list-group-item-danger.active:focus {
 .panel-footer {
   padding: 10px 15px;
   background-color: #f5f5f5;
-  border-top: 1px solid #d3e0e9;
+  border-top: 1px solid #e6e5e5;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -7100,7 +7100,7 @@ button.list-group-item-danger.active:focus {
 
 .panel-group .panel-heading + .panel-collapse > .panel-body,
 .panel-group .panel-heading + .panel-collapse > .list-group {
-  border-top: 1px solid #d3e0e9;
+  border-top: 1px solid #e6e5e5;
 }
 
 .panel-group .panel-footer {
@@ -7108,21 +7108,21 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-group .panel-footer + .panel-collapse .panel-body {
-  border-bottom: 1px solid #d3e0e9;
+  border-bottom: 1px solid #e6e5e5;
 }
 
 .panel-default {
-  border-color: #d3e0e9;
+  border-color: #e6e5e5;
 }
 
 .panel-default > .panel-heading {
   color: #333333;
   background-color: #fff;
-  border-color: #d3e0e9;
+  border-color: #e6e5e5;
 }
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #d3e0e9;
+  border-top-color: #e6e5e5;
 }
 
 .panel-default > .panel-heading .badge {
@@ -7131,7 +7131,7 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #d3e0e9;
+  border-bottom-color: #e6e5e5;
 }
 
 .panel-primary {
@@ -8384,5 +8384,28 @@ p {
 .bh.help-text {
   color: #333333;
   font-size: 0.8rem;
+}
+
+.circle,
+.profile-pic {
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  background-color: #bf5329;
+}
+
+/*Conversation*/
+
+.conversations .conversation.teaser {
+  border-top: 1px solid #eeeeee;
 }
 

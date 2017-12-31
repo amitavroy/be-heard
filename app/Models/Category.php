@@ -13,6 +13,7 @@ class Category extends BaseModel
     {
         return static::categoryQuery()
             ->orderBy('name', 'desc')
+            ->with('conversations')
             ->get();
     }
 
