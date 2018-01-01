@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Models\Conversation;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Tests\TestHelper;
 
@@ -92,12 +91,13 @@ class ConversationTest extends TestCase
     {
         $conv = factory(Conversation::class)->create();
         $conv->categories()->attach([1,2]);
+        $user = $this->getActiveUser();
 
-        $response = $this->actingAs($this->getActiveUser())
+        $response = $this->actingAs($user)
             ->get(route('conversation.view', $conv->slug));
 
         $response->assertStatus(200)
-            ->assertSee(Auth::user()->name)
+            ->assertSee($user->name)
             ->assertSee($conv->timeAgo())
             ->assertSee($conv->title);
 
