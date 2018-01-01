@@ -6,6 +6,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h1>Invite users</h1></div>
                 <div class="panel-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{route('invite.add')}}" method="post">
 
                         {{csrf_field()}}
@@ -19,18 +28,6 @@
                         <button class="btn btn-primary">
                             Send
                         </button>
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-
                     </form>
                 </div>
             </div>

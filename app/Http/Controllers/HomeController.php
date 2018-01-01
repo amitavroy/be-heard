@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::dashboardListing();
-        $conversations = Conversation::dashboardList(5);
+        $conversations = Conversation::getConversations(5);
 
         return view('minimal.pages.home')
             ->with('conversations', $conversations)

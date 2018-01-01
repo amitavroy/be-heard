@@ -16,6 +16,12 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('conversation-add', require('./conversation/ConversationAdd.vue'));
+
+/**
+ * Creating the event bus instance
+ */
+window.eventBus = new Vue({});
 
 const app = new Vue({
     el: '#app'

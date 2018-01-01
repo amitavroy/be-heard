@@ -2,6 +2,23 @@
 
 @section('content')
     <div class="row">
+        <div class="col-sm-12">
+            <div class="top-menu">
+                <ul>
+                    <li>
+                        <a href="#" class="btn btn-default">New</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           onclick="window.eventBus.$emit('addNewConversationEvent');"
+                           class="btn btn-default">New conversation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-6 col-sm-12">
             <h2>Categories</h2>
             <div class="categories">
@@ -20,17 +37,7 @@
             <div class="conversations">
                 <h2>Latest posts</h2>
                 @foreach($conversations as $conversation)
-                    <div class="conversation teaser">
-                        <span class="author">{!! $conversation->author->profilePic() !!}</span>
-                        <h3>
-                            <a href="{{route('conversation.view', $conversation->slug)}}">{{$conversation->title}}</a>
-                        </h3>
-                        <ul class="categories">
-                            @foreach($conversation->categories as $category)
-                                <li>{{$category->name}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @include('minimal.partials.conversation-teaser')
                 @endforeach
             </div>
         </div>
