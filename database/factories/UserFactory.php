@@ -44,10 +44,12 @@ $factory->define(\App\Models\Category::class, function (Faker $faker) {
 });
 
 $factory->define(\App\Models\Conversation::class, function (Faker $faker) {
+    $title = $faker->sentence(6);
     return [
-        'title' => $faker->sentence(6),
+        'title' => $title,
         'creator' => factory(\App\User::class)->create()->id,
-        'body' => $faker->sentence(20),
+        'slug' => str_slug($title),
+        'body' => $faker->sentence(500),
         'expire_at' => Carbon::now()->addDays($faker->numberBetween(1,9)),
         'published' => 1,
         'sticky' => 0,

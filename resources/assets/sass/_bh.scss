@@ -48,11 +48,39 @@ p {
   background-color: $brand-danger;
 }
 
+/*Categories*/
+.categories {
+  h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  .category {
+    border-top: 1px solid $gray-lighter;
+  }
+  .category:first-child {
+    border-top: 5px solid $gray-lighter;
+  }
+}
+
 /*Conversation*/
 .conversations {
+  h3 {
+    font-size: 1.4rem;
+  }
   .conversation {
+    ul.categories {
+      padding: 0;
+      margin: 0;
+      li {
+        list-style: none;
+        font-weight: bold;
+      }
+    }
     &.teaser {
       border-top: 1px solid $gray-lighter;
+    }
+    &:first-child {
+      border-top: 5px solid $gray-lighter;
     }
   }
 }

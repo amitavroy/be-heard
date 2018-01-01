@@ -8403,9 +8403,42 @@ p {
   background-color: #bf5329;
 }
 
+/*Categories*/
+
+.categories h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.categories .category {
+  border-top: 1px solid #eeeeee;
+}
+
+.categories .category:first-child {
+  border-top: 5px solid #eeeeee;
+}
+
 /*Conversation*/
+
+.conversations h3 {
+  font-size: 1.4rem;
+}
+
+.conversations .conversation ul.categories {
+  padding: 0;
+  margin: 0;
+}
+
+.conversations .conversation ul.categories li {
+  list-style: none;
+  font-weight: bold;
+}
 
 .conversations .conversation.teaser {
   border-top: 1px solid #eeeeee;
+}
+
+.conversations .conversation:first-child {
+  border-top: 5px solid #eeeeee;
 }
 
