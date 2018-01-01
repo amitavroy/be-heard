@@ -10,5 +10,4 @@ class GuestController extends Controller
     {
         return view('welcome');
     }
-
 }

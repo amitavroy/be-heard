@@ -28,7 +28,12 @@ class InviteEmailsValidation implements Rule
     public function passes($attribute, $value)
     {
         if (isset($value)) {
-            $emails = explode(",", $value);
+            $emails = explode(PHP_EOL, $value);
+
+            foreach ($emails as $key => $email) {
+                $emails[$key] = preg_replace("/\r|\n/", "", $email);
+            }
+
             $records = User::whereIn('email', $emails)->get();
 
             foreach ($records as $key => $value) {

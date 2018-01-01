@@ -105,7 +105,7 @@ class SendInviteTest extends TestCase
         Mail::fake();
 
         $postData = [
-            'emails' => "abc@on.com,bcd@acd.com,def@abc.com",
+            'emails' => "abc@on.com\r\nbcd@acd.com\r\ndef@abc.com",
         ];
 
         $this->actingAs($this->user)
@@ -118,8 +118,6 @@ class SendInviteTest extends TestCase
     /** @test */
     public function an_existing_user_cannot_be_invited()
     {
-        // with one email address who is a user
-        // validation message should come up
         Mail::fake();
 
         $postData = [
@@ -144,13 +142,10 @@ class SendInviteTest extends TestCase
     /** @test */
     public function one_user_in_many_emails_should_come_up()
     {
-        // with multiple user email address
-        // and one user which already exist
-        // validation message should come
         Mail::fake();
 
         $postData = [
-            'emails' => "abc@on.com,bcd@acd.com,def@abc.com,reachme@amitavroy.com",
+            'emails' => "abc@on.com\r\nbcd@acd.com\r\ndef@abc.com\r\nreachme@amitavroy.com",
         ];
         $this->actingAs($this->user)
             ->post(route('invite.save'), $postData)
