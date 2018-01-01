@@ -12,13 +12,24 @@
 
                         <div class="form-group">
                             <label for="emails">Email address</label>
-                            <textarea name="emails" id="emails" cols="30" rows="10" class="form-control"></textarea>
+                            <textarea name="emails" id="emails" cols="30" rows="10" class="form-control">{{old('emails')}}</textarea>
                             <span class="bh help-text">You can enter one email address per line</span>
                         </div>
 
                         <button class="btn btn-primary">
                             Send
                         </button>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
 
                     </form>
                 </div>

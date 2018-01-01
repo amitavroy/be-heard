@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invite;
+use App\Rules\InviteEmailsValidation;
 use App\Service\Invites\SendInviteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,14 +25,19 @@ class InviteController extends Controller
 
     public function store(Request $request, SendInviteService $inviteService)
     {
-        $emails = explode(PHP_EOL, $request->input('emails'));
 
-        foreach ($emails as $key => $email) {
-            // code reference taken from stackoverflow
-            //https://stackoverflow.com/questions/4865835/how-can-characters-n-t-r-be-replaced-with
-            $regex = '/(\s|\\\\[rntv]{1})/';
-            $emails[$key] = preg_replace($regex, '', $email);
-        }
+        $val = $request->validate([
+            'emails' => ['required', new InviteEmailsValidation],
+        ]);
+
+        $emails = explode(",", $request->input('emails'));
+
+//        foreach ($emails as $key => $email) {
+//            // code reference taken from stackoverflow
+//            //https://stackoverflow.com/questions/4865835/how-can-characters-n-t-r-be-replaced-with
+//            $regex = '/(\s|\\\\[rntv]{1})/';
+//            $emails[$key] = preg_replace($regex, '', $email);
+//        }
 
         if (!$inviteService->sendInvites($emails)) {
             flash()->error('Invites were not sent. Try again.');

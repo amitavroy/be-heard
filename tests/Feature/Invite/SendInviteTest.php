@@ -105,7 +105,7 @@ class SendInviteTest extends TestCase
         Mail::fake();
 
         $postData = [
-            'emails' => "abc@on.com\r\nbcd@acd.com\r\ndef@abc.com",
+            'emails' => "abc@on.com,bcd@acd.com,def@abc.com",
         ];
 
         $this->actingAs($this->user)
@@ -120,6 +120,25 @@ class SendInviteTest extends TestCase
     {
         // with one email address who is a user
         // validation message should come up
+        Mail::fake();
+
+        $postData = [
+            'emails' => "reachme@amitavroy.com",
+        ];
+        $this->actingAs($this->user)
+            ->post(route('invite.save'), $postData)
+            ->assertSessionHasErrors()
+//            ->assertRedirect(route('invite.add'))
+//            ->assertSessionHas('flash_notification.emails', 'danger')
+            ->assertStatus(302);
+
+        $errors = request()->session()->get('errors');
+        $messages = $errors->getBag('default')->getMessages();
+        $emailErrorMessage = array_shift($messages['emails']);
+
+        $this->assertEquals('Following email address reachme@amitavroy.com already exists.', $emailErrorMessage);
+
+        Mail::assertQueued(SendInvitationMail::class, 0);
     }
 
     /** @test */
@@ -128,6 +147,27 @@ class SendInviteTest extends TestCase
         // with multiple user email address
         // and one user which already exist
         // validation message should come
+        Mail::fake();
+
+        $postData = [
+            'emails' => "abc@on.com,bcd@acd.com,def@abc.com,reachme@amitavroy.com",
+        ];
+        $this->actingAs($this->user)
+            ->post(route('invite.save'), $postData)
+            ->assertSessionHasErrors()
+//            ->assertRedirect(route('invite.add'))
+//            ->assertSessionHas('flash_notification.emails', 'danger')
+            ->assertStatus(302);
+
+        $errors = request()->session()->get('errors');
+        $messages = $errors->getBag('default')->getMessages();
+        $emailErrorMessage = array_shift($messages['emails']);
+
+        $this->assertEquals('Following email address reachme@amitavroy.com already exists.', $emailErrorMessage);
+
+        Mail::assertQueued(SendInvitationMail::class, 0);
+
+
     }
 
     /** @test */
