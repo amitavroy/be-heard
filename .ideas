@@ -8,3 +8,6 @@ Email will be sent to each user to register - token based links
 
 User should also see a list of invites he has sent and that are still active
     - if a user gets an invite, but later registers without invite then change the status
+
+# Conversations
+Listing page should show conversation categories and also the latest 10 posts

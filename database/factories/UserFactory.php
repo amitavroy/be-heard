@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,25 @@ $factory->define(\App\Models\Invite::class, function (Faker $faker) {
         'token' => uniqid('invite'),
         'expire_at' => \Carbon\Carbon::now()->addDays(7),
         'used' => 0,
+    ];
+});
+
+$factory->define(\App\Models\Category::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence,
+    ];
+});
+
+$factory->define(\App\Models\Conversation::class, function (Faker $faker) {
+    $title = $faker->sentence(6);
+    return [
+        'title' => $title,
+        'creator' => factory(\App\User::class)->create()->id,
+        'slug' => str_slug($title),
+        'body' => $faker->sentence(500),
+        'expire_at' => Carbon::now()->addDays($faker->numberBetween(1,9)),
+        'published' => 1,
+        'sticky' => 0,
     ];
 });

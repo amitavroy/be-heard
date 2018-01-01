@@ -30,3 +30,57 @@ p {
     font-size: 0.8rem;
   }
 }
+
+.circle {
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+}
+
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  @extend .circle;
+  background-color: $brand-danger;
+}
+
+/*Categories*/
+.categories {
+  h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  .category {
+    border-top: 1px solid $gray-lighter;
+  }
+  .category:first-child {
+    border-top: 5px solid $gray-lighter;
+  }
+}
+
+/*Conversation*/
+.conversations {
+  h3 {
+    font-size: 1.4rem;
+  }
+  .conversation {
+    ul.categories {
+      padding: 0;
+      margin: 0;
+      li {
+        list-style: none;
+        font-weight: bold;
+      }
+    }
+    &.teaser {
+      border-top: 1px solid $gray-lighter;
+    }
+    &:first-child {
+      border-top: 5px solid $gray-lighter;
+    }
+  }
+}
