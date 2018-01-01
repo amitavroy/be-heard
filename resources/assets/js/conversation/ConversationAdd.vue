@@ -10,7 +10,9 @@
                 <div class="col-sm-6">
                     <textarea cols="40" rows="10" class="form-control" id="add-area"></textarea>
                 </div>
-                <div class="col-sm-6 preview"></div>
+                <div class="col-sm-6 preview">
+                    {{userText}}
+                </div>
             </div>
         </div>
     </div>
@@ -18,24 +20,36 @@
 </template>
 
 <script>
+import SimpleMDE from 'simplemde';
 export default {
     created () {
         window.eventBus.$on('addNewConversationEvent', () => {
             this.containerClass = [];
             this.containerClass.push(['animated', 'bounceInUp']);
-            CKEDITOR.replace('add-area', {
-                customConfig: '/config/ckedit.js'
+            this.simplemde = new SimpleMDE({
+                element: document.getElementById("add-area"),
+                autofocus: true,
+                forceSync: true
+            });
+
+            this.simplemde.codemirror.on("change", () => {
+                this.userText = this.simplemde.value();
             });
         });
     },
     data () {
         return {
+            simplemde: null,
+            userText: '',
             containerClass: ['hide']
         }
     },
     methods: {
         closeContainer () {
             this.containerClass.push(['animated', 'bounceOutDown']);
+            this.simplemde.toTextArea();
+            this.simplemde = null;
+            this.userText = '';
         }
     }
 }
