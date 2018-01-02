@@ -8,6 +8,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
