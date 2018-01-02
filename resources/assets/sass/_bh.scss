@@ -1,3 +1,8 @@
+// BS Overrides
+.navbar-default .navbar-nav > li > a {
+  display: inline-block;
+}
+
 // Typography
 html {
   font-size: 14px;
@@ -53,6 +58,14 @@ p {
   font-size: 1.2rem;
   @extend .circle;
   background-color: $brand-danger;
+  position: relative;
+  vertical-align: middle;
+  span {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translateY(-50%) translateX(-50%);
+  }
 }
 
 /*Top menu*/
@@ -97,9 +110,9 @@ p {
     }
     &.teaser {
       border-top: 1px solid $gray-lighter;
-    }
-    &:first-child {
-      border-top: 5px solid $gray-lighter;
+      &:nth-child(2) {
+        border-top: 5px solid $gray-lighter;
+      }
     }
   }
 }

@@ -11752,6 +11752,10 @@ button.close {
   }
 }
 
+.navbar-default .navbar-nav > li > a {
+  display: inline-block;
+}
+
 html {
   font-size: 14px;
 }
@@ -11811,6 +11815,16 @@ p {
   color: white;
   font-size: 1.2rem;
   background-color: #bf5329;
+  position: relative;
+  vertical-align: middle;
+}
+
+.profile-pic span {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
 }
 
 /*Top menu*/
@@ -11860,7 +11874,7 @@ p {
   border-top: 1px solid #eeeeee;
 }
 
-.conversations .conversation:first-child {
+.conversations .conversation.teaser:nth-child(2) {
   border-top: 5px solid #eeeeee;
 }
 
