@@ -47,6 +47,7 @@
                     <li><a href="#">Register</a></li>
                 @else
                     <li class="dropdown">
+                        {!! Auth::user()->profilePic() !!}
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
                             {{Auth::user()->name}} <span class="caret"></span>

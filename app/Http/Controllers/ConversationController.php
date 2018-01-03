@@ -27,4 +27,9 @@ class ConversationController extends Controller
         return view('minimal.pages.conversations.conversation-view')
             ->with('conversation', $conversation);
     }
+
+    public function store(Request $request)
+    {
+        return $request->all();
+    }
 }
