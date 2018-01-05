@@ -6,10 +6,11 @@ use App\Models\Conversation;
 use App\Models\Presenters\UserPresenter;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserPresenter;
+    use HasApiTokens, Notifiable, UserPresenter;
 
     /**
      * The attributes that are mass assignable.

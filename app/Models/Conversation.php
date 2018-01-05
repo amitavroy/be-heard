@@ -33,7 +33,7 @@ class Conversation extends BaseModel
     {
         return static::where('published', 1)
             ->where('created_at', '<=', Carbon::now())
-            ->orderBy('updated_at')
-            ->orderBy('sticky', 'desc');
+            ->orderBy('sticky', 'desc')
+            ->orderBy('updated_at', 'desc');
     }
 }

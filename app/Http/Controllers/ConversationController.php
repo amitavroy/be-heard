@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConversationController extends Controller
 {
@@ -30,6 +31,22 @@ class ConversationController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
+        $postData = $request->validate([
+            'title' => 'required|min:5',
+            'body' => 'required|min: 5'
+        ]);
+
+        $conversation = Conversation::create([
+            'title' => $postData['title'],
+            'creator' => Auth::user()->id,
+            'slug' => str_slug($postData['title']),
+            'body' => $postData['body'],
+            'published' => 1,
+            'sticky' => 0,
+        ]);
+
+        flash('Conversation was saved.', 'success');
+
+        return response(['data' => $conversation], 201);
     }
 }

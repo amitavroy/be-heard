@@ -26,7 +26,8 @@ class CategoriesTableSeeder extends Seeder
             'name' => 'Feedback'
         ]);
 
-        for ($i = 0; $i <= 30; $i++) {
+        $count = 2;
+        for ($i = 0; $i <= $count; $i++) {
             $conversation = factory(\App\Models\Conversation::class)->create([
                 'creator' => 1,
             ]);
