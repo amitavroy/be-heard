@@ -20,13 +20,13 @@ class ConversationCreateTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_save_conversation()
-    {
-        $conv = factory(Conversation::class)->make()->toArray();
-
-        $this->post(route('conversation.save'), $conv)
-            ->assertRedirect(route('login'));
-    }
+//    public function a_guest_cannot_save_conversation()
+//    {
+//        $conv = factory(Conversation::class)->make()->toArray();
+//
+//        $this->post(route('conversation.save'), $conv)
+//            ->assertRedirect(route('login'));
+//    }
 
     /** @test */
     public function title_field_is_required()
