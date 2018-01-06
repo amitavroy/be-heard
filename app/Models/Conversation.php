@@ -20,6 +20,11 @@ class Conversation extends BaseModel
         return $this->belongsToMany(Category::class, 'conversation_categories');
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
+
     public static function getConversations($count = 10)
     {
         return static::conversationQuery()

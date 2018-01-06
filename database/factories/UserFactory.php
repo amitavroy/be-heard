@@ -55,3 +55,12 @@ $factory->define(\App\Models\Conversation::class, function (Faker $faker) {
         'sticky' => 0,
     ];
 });
+
+$factory->define(\App\Models\Comment::class, function (Faker $faker) {
+    return [
+        'body' =>  $faker->sentence(6),
+        'commentable_id' => factory(\App\Models\Conversation::class)->create()->id,
+        'commentable_type' => 'App\Models\Conversation',
+        'user_id' => factory(\App\User::class)->create()->id
+    ];
+});
