@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('conversations/save', 'ConversationController@store')->name('conversation.save');
+    Route::post('conversation/reply/save', 'ConversationController@conversationReply')->name('conversation.reply');
 });

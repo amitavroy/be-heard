@@ -29,45 +29,24 @@
 </template>
 
 <script>
-  import SimpleMDE from 'simplemde';
-  import markdown from 'markdown';
   import _ from 'lodash';
-  import {saveConversationUrl} from '../config'
+  import EditorMixin from './EditorMixin';
+  import {
+    saveConversationUrl, saveConversationReplyUrl
+  } from '../config'
 
   export default {
+    mixins: [EditorMixin],
     created() {
-      window.eventBus.$on('addNewConversationEvent', () => {
-        this.containerClass = [];
-        this.containerClass.push(['animated', 'bounceInUp']);
-        this.simplemde = new SimpleMDE({
-          element: document.getElementById("add-area"),
-          hideIcons: ["guide", "code", "clean-block", "table", "preview", "fullscreen", "side-by-side"],
-          autofocus: true,
-          promptURLs: true,
-          forceSync: true
-        });
-        this.userText = markdown.markdown.toHTML(this.simplemde.value());
 
-        this.simplemde.codemirror.on("change", () => {
-          this.userText = markdown.markdown.toHTML(this.simplemde.value());
-        });
-      });
     },
     data() {
       return {
-        simplemde: null,
         userText: '',
-        title: '',
-        containerClass: ['hide']
+        title: ''
       }
     },
     methods: {
-      closeContainer() {
-        this.containerClass.push(['animated', 'bounceOutDown']);
-        this.simplemde.toTextArea();
-        this.simplemde = null;
-        this.userText = '';
-      },
       handleSave() {
         this.$validator.validateAll().then(result => {
           if (result) {
@@ -78,15 +57,18 @@
             axios.post(saveConversationUrl, postData).then(response => {
               location.reload();
             }).catch(error => {
-              if (error.response.status === 422) {
-                var valErrors = error.response.data.errors;
-                _.each(valErrors, (value, key) => {
-                  this.errors.add(key, value[0]);
-                });
-              }
+              this.handleValidationError(error);
             });
           }
         })
+      },
+      handleValidationError(error) {
+        if (error.response.status === 422) {
+          var valErrors = error.response.data.errors;
+          _.each(valErrors, (value, key) => {
+            this.errors.add(key, value[0]);
+          });
+        }
       }
     }
   }

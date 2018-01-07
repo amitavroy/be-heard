@@ -17,6 +17,7 @@ class ConversationController extends Controller
     {
         $conversation = Conversation::where('slug', $slug)
             ->with('categories')
+            ->with('comments')
             ->where('published', 1)
             ->where('created_at', '<=', Carbon::now())
             ->first();
@@ -48,5 +49,10 @@ class ConversationController extends Controller
         flash('Conversation was saved.', 'success');
 
         return response(['data' => $conversation], 201);
+    }
+
+    public function conversationReply(Request $request)
+    {
+        return $request->all();
     }
 }
