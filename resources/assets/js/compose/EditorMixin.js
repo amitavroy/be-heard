@@ -2,23 +2,18 @@ import SimpleMDE from 'simplemde';
 import markdown from 'markdown';
 
 export default {
-  created () {
-
-  },
-
-  data () {
+  data() {
     return {
       containerClass: ['hide'],
+      mode: null,
       simplemde: null,
       element: null,
-      mode: null,
       userText: '',
       title: ''
     }
   },
-
   methods: {
-    initContainer() {
+    initEditor() {
       this.element = document.getElementById("add-conversation");
       this.containerClass = [];
       this.containerClass.push(['animated', 'bounceInUp']);
@@ -37,6 +32,7 @@ export default {
         this.userText = markdown.markdown.toHTML(this.simplemde.value());
       });
     },
+
     closeContainer() {
       this.containerClass.push(['animated', 'bounceOutDown']);
       this.simplemde.toTextArea();

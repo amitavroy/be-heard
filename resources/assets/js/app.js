@@ -18,7 +18,7 @@ Vue.use(VeeValidate);
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('conversation-add', require('./conversation/ConversationAdd.vue'));
+Vue.component('compose-editor', require('./compose/ComposeEditor.vue'));
 
 /**
  * Creating the event bus instance

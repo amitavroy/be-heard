@@ -21,7 +21,7 @@
             @include('flash::message')
             @yield('content')
         </div>
-        <conversation-add></conversation-add>
+        <compose-editor></compose-editor>
     </div>
 
     <script src="{{url('js/app.js')}}"></script>
