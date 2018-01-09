@@ -1,15 +1,19 @@
 import SimpleMDE from 'simplemde';
 import markdown from 'markdown';
+import {
+  saveConversationUrl, saveConversationReplyUrl
+} from '../config'
 
 export default {
   data() {
     return {
       containerClass: ['hide'],
-      mode: null,
       simplemde: null,
       element: null,
       userText: '',
-      title: ''
+      title: '',
+      showExtra: false,
+      conversationId: null
     }
   },
   methods: {
@@ -37,6 +41,48 @@ export default {
       this.containerClass.push(['animated', 'bounceOutDown']);
       this.simplemde.toTextArea();
       this.simplemde = null;
+    },
+
+    handleSaveConversation() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let postData = {
+            title: this.title,
+            body: this.userText
+          };
+          axios.post(saveConversationUrl, postData).then(response => {
+            location.reload();
+          }).catch(error => {
+            this.handleValidationError(error);
+          });
+        }
+      })
+    },
+
+    handleSaveReply() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let postData = {
+            conversationId: this.conversationId,
+            body: this.userText
+          };
+          axios.post(saveConversationReplyUrl, postData).then(response => {
+            // location.reload();
+            console.log(response);
+          }).catch(error => {
+            this.handleValidationError(error);
+          })
+        }
+      })
+    },
+
+    handleValidationError(error) {
+      if (error.response.status === 422) {
+        var valErrors = error.response.data.errors;
+        _.each(valErrors, (value, key) => {
+          this.errors.add(key, value[0]);
+        });
+      }
     }
   }
 }

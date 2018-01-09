@@ -53,6 +53,11 @@ class ConversationController extends Controller
 
     public function conversationReply(Request $request)
     {
-        return $request->all();
+        $postData = $request->validate([
+            'conversationId' => 'required|exists:conversations,id',
+            'body' => 'required|min:10',
+        ]);
+
+        return response($postData, 200);
     }
 }

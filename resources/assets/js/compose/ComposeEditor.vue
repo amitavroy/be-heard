@@ -7,46 +7,29 @@
         <span v-on:click="closeContainer" class="pull-right">Close</span>
       </div>
 
-      <div v-if="mode == 'conversation'">
-        <form @submit.prevent="handleSaveConversation">
-          <div class="content-area">
-            <div class="row">
-              <div class="col-sm-6">
-                <input type="text" name="title" class="form-control" v-validate="'required'" v-model="title">
-                <span v-show="errors.has('title')" class="bh error">{{ errors.first('title') }}</span>
-                <textarea cols="40" name="body" rows="10" class="form-control" id="add-conversation"
-                          v-validate="'required'"></textarea>
-                <span v-show="errors.has('body')" class="bh error">{{ errors.first('body') }}</span>
-              </div>
-              <div class="col-sm-6 preview" v-html="userText"></div>
-            </div>
-          </div>
+      <form @submit.prevent="handleSaveButton">
+        <div class="content-area">
           <div class="row">
-            <div class="col-sm-12">
-              <button class="btn btn-primary">Save</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div v-if="mode == 'reply'">
-        <form @submit.prevent="handleSaveConversation">
-          <div class="content-area">
-            <div class="row">
-              <div class="col-sm-6">
-                <textarea cols="40" name="body" rows="10" class="form-control" id="add-conversation"
-                          v-validate="'required'"></textarea>
-                <span v-show="errors.has('body')" class="bh error">{{ errors.first('body') }}</span>
+            <div class="col-sm-6">
+              <div class="extra-fields" v-if="showExtra">
+                <div class="form-group">
+                  <input type="text" name="title" id="title" class="form-control" v-model="title">
+                </div>
               </div>
-              <div class="col-sm-6 preview" v-html="userText"></div>
+              <textarea cols="40" name="body" rows="10" class="form-control" id="add-conversation"
+                        v-validate="'required'"></textarea>
+              <span v-show="errors.has('body')" class="bh error">{{ errors.first('body') }}</span>
+              <p v-show="errors.has('conversationId')" class="bh error">{{ errors.first('conversationId') }}</p>
             </div>
+            <div class="col-sm-6 preview" v-html="userText"></div>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <button class="btn btn-primary">Save</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-primary">Save</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
 
   </div>
@@ -54,28 +37,32 @@
 
 <script>
   import EditorMixin from './EditorMixin';
-  import ConversationEditor from './ConversationEditor.vue';
-  import ReplyEditor from './ReplyEditor.vue';
 
   export default {
     mixins: [EditorMixin],
 
-    components: {
-      ConversationEditor, ReplyEditor
-    },
-
     created() {
       window.eventBus.$on('addNewConversationEvent', () => {
         console.log('addNewConversationEvent');
-        this.mode = 'conversation';
         this.initEditor();
+        this.showExtra = true;
       });
 
-      window.eventBus.$on('addNewReplyEvent', () => {
-        console.log('addNewReplyEvent');
-        this.mode = 'reply';
+      window.eventBus.$on('addNewReplyEvent', (conversationId) => {
+        console.log('addNewReplyEvent', conversationId);
         this.initEditor();
+        this.conversationId = conversationId;
       });
+    },
+
+    methods: {
+      handleSaveButton() {
+        if (this.showExtra == true) {
+          this.handleSaveConversation();
+        } else {
+          this.handleSaveReply();
+        }
+      }
     }
   }
 </script>

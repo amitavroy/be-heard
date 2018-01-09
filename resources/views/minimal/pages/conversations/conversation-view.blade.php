@@ -29,7 +29,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);"
-                           onclick="window.eventBus.$emit('addNewReplyEvent', 'reply', {{$conversation->id}});"
+                           onclick="window.eventBus.$emit('addNewReplyEvent', {{$conversation->id}});"
                            class="btn btn-default">New conversation</a>
                     </li>
                 </ul>
