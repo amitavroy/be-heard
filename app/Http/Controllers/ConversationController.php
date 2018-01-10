@@ -58,6 +58,14 @@ class ConversationController extends Controller
             'body' => 'required|min:10',
         ]);
 
-        return response($postData, 200);
+        // assuming the validation will check if the id is present
+        $conversation = Conversation::find($postData['conversationId']);
+
+        $comment = $conversation->comments()->create([
+            'body' => $postData['body'],
+            'user_id' => Auth::user()->id,
+        ]);
+
+        return response($comment, 200);
     }
 }
