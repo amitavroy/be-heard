@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Comment;
 use App\Models\Conversation;
 use App\Models\Presenters\UserPresenter;
 use Illuminate\Notifications\Notifiable;
@@ -33,5 +34,10 @@ class User extends Authenticatable
     public function conversations()
     {
         return $this->hasMany(Conversation::class, 'creator');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

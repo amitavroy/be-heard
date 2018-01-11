@@ -42,7 +42,7 @@
             <h2>Comments</h2>
             @if(count($conversation->comments) > 0)
                 @foreach($conversation->comments as $comment)
-                    {{$comment->body}}
+                    @include('minimal.partials.comment-view')
                 @endforeach
                 @else
                 <p>No comments yet. Be the first to drop a comment.</p>

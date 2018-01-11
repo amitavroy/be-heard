@@ -1,14 +1,5 @@
 <?php
 
-Route::get('temp', function () {
-    $conversation = \App\Models\Conversation::find(10);
-
-    $conversation->comments()->create([
-        'body' => uniqid(),
-        'user_id' => 1,
-    ]);
-});
-
 Route::get('/', 'GuestController@index')->name('index');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('do-login');

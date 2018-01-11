@@ -67,8 +67,8 @@ export default {
             body: this.userText
           };
           axios.post(saveConversationReplyUrl, postData).then(response => {
-            // location.reload();
-            console.log(response);
+            location.reload();
+            // console.log(response);
           }).catch(error => {
             this.handleValidationError(error);
           })
