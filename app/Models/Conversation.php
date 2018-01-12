@@ -22,7 +22,7 @@ class Conversation extends BaseModel
 
     public function comments()
     {
-        return $this->morphMany('App\Models\Comment', 'commentable');
+        return $this->morphMany('App\Models\Comment', 'commentable')->orderBy('created_at', 'desc');
     }
 
     public static function getConversations($count = 10)

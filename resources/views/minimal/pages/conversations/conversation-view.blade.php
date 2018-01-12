@@ -22,15 +22,12 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class="top-menu">
+            <div class="top-menu reply">
                 <ul>
-                    <li>
-                        <a href="#" class="btn btn-default">New</a>
-                    </li>
                     <li>
                         <a href="javascript:void(0);"
                            onclick="window.eventBus.$emit('addNewReplyEvent', {{$conversation->id}});"
-                           class="btn btn-default">New conversation</a>
+                           class="btn btn-default">Add reply</a>
                     </li>
                 </ul>
             </div>

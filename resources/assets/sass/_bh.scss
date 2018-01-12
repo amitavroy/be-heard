@@ -70,6 +70,10 @@ p {
 
 /*Top menu*/
 .top-menu {
+  &.reply {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
   ul {
     padding: 0;
     margin: 0;
@@ -140,5 +144,19 @@ p {
   }
   .content-area {
     padding: 20px;
+  }
+}
+
+/*comments*/
+.comment-container {
+  padding: 1.2rem;
+  border-top: 1px solid $gray-lighter;
+  .meta {
+    font-size: 0.8rem;
+  }
+  .body {
+    p:last-child {
+      padding-bottom: 0;
+    }
   }
 }
