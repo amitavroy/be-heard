@@ -23,7 +23,7 @@ class ConversationController extends Controller
             ->first();
 
         if (!$conversation) {
-            abort(404, 'The conversation as not found.');
+            abort(404, 'The conversation was not found.');
         }
 
         return view('minimal.pages.conversations.conversation-view')
