@@ -1,7 +1,7 @@
 <div class="comment-container" id="{{$comment->id}}">
     <div class="meta">
         Created {{$comment->timeAgo()}} by <strong>{{$comment->user->name}}</strong>
-        <p>Current {{Auth::user()->name}}</p>
+
         <div class="controls">
             @if($comment->isOwner())
                 <span class="pull-right">

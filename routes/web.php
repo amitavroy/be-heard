@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::group(['middleware' => ['user.status']], function () {
         Route::get('home', 'HomeController@index')->name('home');
+        Route::get('profile', 'ProfileController@index');
 
         /*Invite routes*/
         Route::get('invite', 'InviteController@index')->name('invite');
