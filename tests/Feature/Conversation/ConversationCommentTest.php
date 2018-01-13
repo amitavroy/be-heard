@@ -24,20 +24,6 @@ class ConversationCommentTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_make_comment_save_request()
-    {
-        $sticky = $this->conversations['sticky'];
-
-        $postData = [
-            'conversationId' => $sticky->id,
-            'body' => 'Quick brown fox jumps over the candle stick',
-        ];
-
-        $this->post(route('conversation.reply'), $postData)
-            ->assertRedirect(route('login'));
-    }
-
-    /** @test */
     public function a_user_can_make_comment()
     {
         $sticky = $this->conversations['sticky'];
