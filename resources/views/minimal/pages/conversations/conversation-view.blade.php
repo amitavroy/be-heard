@@ -14,7 +14,7 @@
                     <p>Created by {{$conversation->author->name}} on {{$conversation->timeAgo()}}</p>
                 </div>
                 <div class="content">
-                    {!! $conversation->body !!}
+                    {!! parseMarkdown($conversation->body) !!}
                 </div>
             </div>
         </div>

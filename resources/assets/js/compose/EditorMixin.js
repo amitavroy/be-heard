@@ -1,7 +1,8 @@
 import SimpleMDE from 'simplemde';
 import markdown from 'markdown';
 import {
-  saveConversationUrl, saveConversationReplyUrl
+  saveConversationUrl, saveConversationReplyUrl,
+  getCommentById, updateCommentById
 } from '../config'
 
 export default {
@@ -11,9 +12,12 @@ export default {
       simplemde: null,
       element: null,
       userText: '',
+      userTextMarkdown: '',
       title: '',
       showExtra: false,
-      conversationId: null
+      conversationId: null,
+      commentId: null,
+      boxMode: null
     }
   },
   methods: {
@@ -34,6 +38,7 @@ export default {
 
       this.simplemde.codemirror.on("change", () => {
         this.userText = markdown.markdown.toHTML(this.simplemde.value());
+        this.userTextMartkdown = this.simplemde.value();
       });
     },
 
@@ -64,9 +69,26 @@ export default {
         if (result) {
           let postData = {
             conversationId: this.conversationId,
-            body: this.userText
+            body: this.userTextMartkdown
           };
           axios.post(saveConversationReplyUrl, postData).then(response => {
+            location.reload();
+            // console.log(response);
+          }).catch(error => {
+            this.handleValidationError(error);
+          })
+        }
+      })
+    },
+
+    handleEditReply() {
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let postData = {
+            commentId: this.commentId,
+            body: this.userTextMartkdown
+          };
+          axios.post(updateCommentById, postData).then(response => {
             location.reload();
             // console.log(response);
           }).catch(error => {
@@ -83,6 +105,24 @@ export default {
           this.errors.add(key, value[0]);
         });
       }
+    },
+
+    loadCommentById(commentId) {
+      let postData = {
+        commentId: commentId
+      };
+
+      axios.post(getCommentById, postData).then(response => {
+        console.log('response', response);
+        if (response.status === 200) {
+          // this.userText = response.data.body;
+          this.simplemde.value(response.data.body);
+          this.conversationId = response.data.commentable_id;
+          this.commentId = response.data.id;
+        }
+      }).catch(error => {
+        this.handleValidationError(error);
+      })
     }
   }
 }

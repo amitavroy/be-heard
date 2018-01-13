@@ -61146,24 +61146,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     window.eventBus.$on('addNewConversationEvent', function () {
       console.log('addNewConversationEvent');
+      _this.boxMode = 'addNewConversationEvent';
       _this.initEditor();
       _this.showExtra = true;
     });
 
     window.eventBus.$on('addNewReplyEvent', function (conversationId) {
       console.log('addNewReplyEvent', conversationId);
+      _this.boxMode = 'addNewReplyEvent';
       _this.initEditor();
       _this.conversationId = conversationId;
+    });
+
+    window.eventBus.$on('editReplyEvent', function (commentId) {
+      console.log('editReplyEvent', commentId);
+      _this.boxMode = 'editReplyEvent';
+      _this.initEditor();
+      _this.loadCommentById(commentId);
     });
   },
 
 
   methods: {
     handleSaveButton: function handleSaveButton() {
-      if (this.showExtra == true) {
-        this.handleSaveConversation();
-      } else {
-        this.handleSaveReply();
+      switch (this.boxMode) {
+        case 'addNewConversationEvent':
+          this.handleSaveConversation();
+          break;
+
+        case 'addNewReplyEvent':
+          this.handleSaveReply();
+          break;
+
+        case 'editReplyEvent':
+          this.handleEditReply();
+          break;
+
+        default:
+          return false;
       }
     }
   }
@@ -61190,9 +61210,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       simplemde: null,
       element: null,
       userText: '',
+      userTextMarkdown: '',
       title: '',
       showExtra: false,
-      conversationId: null
+      conversationId: null,
+      commentId: null,
+      boxMode: null
     };
   },
 
@@ -61216,6 +61239,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.simplemde.codemirror.on("change", function () {
         _this.userText = __WEBPACK_IMPORTED_MODULE_1_markdown___default.a.markdown.toHTML(_this.simplemde.value());
+        _this.userTextMartkdown = _this.simplemde.value();
       });
     },
     closeContainer: function closeContainer() {
@@ -61232,7 +61256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             title: _this2.title,
             body: _this2.userText
           };
-          axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["b" /* saveConversationUrl */], postData).then(function (response) {
+          axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["c" /* saveConversationUrl */], postData).then(function (response) {
             location.reload();
           }).catch(function (error) {
             _this2.handleValidationError(error);
@@ -61247,9 +61271,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (result) {
           var postData = {
             conversationId: _this3.conversationId,
-            body: _this3.userText
+            body: _this3.userTextMartkdown
           };
-          axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* saveConversationReplyUrl */], postData).then(function (response) {
+          axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["b" /* saveConversationReplyUrl */], postData).then(function (response) {
             location.reload();
             // console.log(response);
           }).catch(function (error) {
@@ -61258,15 +61282,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    handleValidationError: function handleValidationError(error) {
+    handleEditReply: function handleEditReply() {
       var _this4 = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          var postData = {
+            commentId: _this4.commentId,
+            body: _this4.userTextMartkdown
+          };
+          axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["d" /* updateCommentById */], postData).then(function (response) {
+            location.reload();
+            // console.log(response);
+          }).catch(function (error) {
+            _this4.handleValidationError(error);
+          });
+        }
+      });
+    },
+    handleValidationError: function handleValidationError(error) {
+      var _this5 = this;
 
       if (error.response.status === 422) {
         var valErrors = error.response.data.errors;
         _.each(valErrors, function (value, key) {
-          _this4.errors.add(key, value[0]);
+          _this5.errors.add(key, value[0]);
         });
       }
+    },
+    loadCommentById: function loadCommentById(commentId) {
+      var _this6 = this;
+
+      var postData = {
+        commentId: commentId
+      };
+
+      axios.post(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* getCommentById */], postData).then(function (response) {
+        console.log('response', response);
+        if (response.status === 200) {
+          // this.userText = response.data.body;
+          _this6.simplemde.value(response.data.body);
+          _this6.conversationId = response.data.commentable_id;
+          _this6.commentId = response.data.id;
+        }
+      }).catch(function (error) {
+        _this6.handleValidationError(error);
+      });
     }
   }
 });
@@ -70835,12 +70896,16 @@ if (typeof Object.create === 'function') {
 
 "use strict";
 /* unused harmony export apiDomain */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return saveConversationUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return saveConversationReplyUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return saveConversationUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return saveConversationReplyUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getCommentById; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateCommentById; });
 var apiDomain = window.Laravel.basePath;
 
 var saveConversationUrl = apiDomain + 'api/conversations/save';
 var saveConversationReplyUrl = apiDomain + 'api/conversation/reply/save';
+var getCommentById = apiDomain + 'api/comment/get';
+var updateCommentById = apiDomain + 'api/comment/update';
 
 /***/ }),
 /* 72 */

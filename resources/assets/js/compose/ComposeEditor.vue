@@ -44,23 +44,43 @@
     created() {
       window.eventBus.$on('addNewConversationEvent', () => {
         console.log('addNewConversationEvent');
+        this.boxMode = 'addNewConversationEvent';
         this.initEditor();
         this.showExtra = true;
       });
 
       window.eventBus.$on('addNewReplyEvent', (conversationId) => {
         console.log('addNewReplyEvent', conversationId);
+        this.boxMode = 'addNewReplyEvent';
         this.initEditor();
         this.conversationId = conversationId;
+      });
+
+      window.eventBus.$on('editReplyEvent', (commentId) => {
+        console.log('editReplyEvent', commentId);
+        this.boxMode = 'editReplyEvent';
+        this.initEditor();
+        this.loadCommentById(commentId);
       });
     },
 
     methods: {
       handleSaveButton() {
-        if (this.showExtra == true) {
-          this.handleSaveConversation();
-        } else {
-          this.handleSaveReply();
+        switch (this.boxMode) {
+          case 'addNewConversationEvent':
+            this.handleSaveConversation();
+            break;
+
+          case 'addNewReplyEvent':
+            this.handleSaveReply();
+            break;
+
+          case 'editReplyEvent':
+            this.handleEditReply();
+            break;
+
+          default:
+            return false;
         }
       }
     }

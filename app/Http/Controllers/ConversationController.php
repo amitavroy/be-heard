@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Conversation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -67,5 +68,37 @@ class ConversationController extends Controller
         ]);
 
         return response($comment, 200);
+    }
+
+    public function getCommentById(Request $request)
+    {
+        $postData = $request->validate([
+            'commentId' => 'required|exists:comments,id',
+        ]);
+
+        $comment = Comment::find($postData['commentId']);
+
+        return response($comment, 200);
+    }
+
+    public function updateCommentById(Request $request)
+    {
+        $postData = $request->validate([
+            'commentId' => 'required|exists:comments,id',
+            'body' => 'required|min:10',
+        ]);
+
+        $comment = Comment::find($postData['commentId']);
+
+        if ($comment->user_id !== Auth::user()->id) {
+            $userId = Auth::user()->id;
+            \Log::info("User {$userId} managed to try and edit other user comment");
+            return response($comment, 200);
+        }
+
+        $comment->body = $postData['body'];
+        $comment->save();
+
+        return response($comment, 201);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use GrahamCampbell\Markdown\Facades\Markdown;
+
 if (!function_exists('getExcerpt')) {
     function getExcerpt($string, $length = 200, $end = '...')
     {
@@ -14,5 +16,12 @@ if (!function_exists('getExcerpt')) {
             $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end;
         }
         return $string;
+    }
+}
+
+if (!function_exists('parseMarkdown')) {
+    function parseMarkdown($string)
+    {
+        return Markdown::convertToHtml($string);
     }
 }
