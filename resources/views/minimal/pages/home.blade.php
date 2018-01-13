@@ -10,7 +10,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0);"
-                           onclick="window.eventBus.$emit('addNewConversationEvent');"
+                           onclick="window.eventBus.$emit('addNewConversationEvent', 'conversation', null);"
                            class="btn btn-default">New conversation</a>
                     </li>
                 </ul>

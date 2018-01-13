@@ -19,7 +19,7 @@ class CreateConversationsTable extends Migration
             $table->unsignedInteger('creator');
             $table->string('slug');
             $table->text('body');
-            $table->dateTime('expire_at');
+            $table->dateTime('expire_at')->nullable();
             $table->boolean('published')->default(1);
             $table->boolean('sticky')->default(0);
             $table->timestamps();

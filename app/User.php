@@ -2,14 +2,16 @@
 
 namespace App;
 
+use App\Models\Comment;
 use App\Models\Conversation;
 use App\Models\Presenters\UserPresenter;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, UserPresenter;
+    use HasApiTokens, Notifiable, UserPresenter;
 
     /**
      * The attributes that are mass assignable.
@@ -32,5 +34,10 @@ class User extends Authenticatable
     public function conversations()
     {
         return $this->hasMany(Conversation::class, 'creator');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

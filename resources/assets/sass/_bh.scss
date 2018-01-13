@@ -70,6 +70,10 @@ p {
 
 /*Top menu*/
 .top-menu {
+  &.reply {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
   ul {
     padding: 0;
     margin: 0;
@@ -109,6 +113,10 @@ p {
       }
     }
     &.teaser {
+      .author {
+        margin-top: 17px;
+        padding-right: 10px;
+      }
       border-top: 1px solid $gray-lighter;
       &:nth-child(2) {
         border-top: 5px solid $gray-lighter;
@@ -128,7 +136,7 @@ p {
   margin-left: auto;
   margin-right: auto;
   max-width: 1475px;
-  width: 100%;
+  width: 90%;
   z-index: 999;
   background-color: white;
   .grip {
@@ -136,5 +144,19 @@ p {
   }
   .content-area {
     padding: 20px;
+  }
+}
+
+/*comments*/
+.comment-container {
+  padding: 1.2rem;
+  border-top: 1px solid $gray-lighter;
+  .meta {
+    font-size: 0.8rem;
+  }
+  .body {
+    p:last-child {
+      padding-bottom: 0;
+    }
   }
 }

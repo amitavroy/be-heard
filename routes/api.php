@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('conversations/save', 'ConversationController@store')->name('conversation.save');
+    Route::post('conversation/reply/save', 'ConversationController@conversationReply')->name('conversation.reply');
+    Route::post('comment/get', 'ConversationController@getCommentById');
+    Route::post('comment/update', 'ConversationController@updateCommentById');
+});

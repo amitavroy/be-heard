@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::group(['middleware' => ['user.status']], function () {
         Route::get('home', 'HomeController@index')->name('home');
+        Route::get('profile', 'ProfileController@index')->name('profile');
 
         /*Invite routes*/
         Route::get('invite', 'InviteController@index')->name('invite');
@@ -32,6 +33,5 @@ Route::group(['middleware' => ['auth']], function () {
         /*Conversation routes*/
         Route::get('conversations', 'ConversationController@index')->name('conversation.list');
         Route::get('conversations/{slug}', 'ConversationController@view')->name('conversation.view');
-        Route::post('conversations/save', 'ConversationController@store')->name('conversation.save');
     });
 });

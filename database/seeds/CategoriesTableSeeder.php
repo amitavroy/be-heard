@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
     {
         Category::create(['name' => 'Restricted',
             'protected' => 1,
-            'description' => 'Posts created by staff and for staff only. This is a protected category so users can only ready posts in this category but they cannot create or reply to this section.'
+            'description' => 'Posts created by staff and for staff only. This is a protected category so users can only ready posts in this category but they cannot create or reply to this section.',
         ]);
 
         Category::create([
@@ -23,15 +23,29 @@ class CategoriesTableSeeder extends Seeder
             'description' => 'Discussion across the board is possible.']);
 
         Category::create([
-            'name' => 'Feedback'
+            'name' => 'Feedback',
         ]);
 
-        for ($i = 0; $i <= 30; $i++) {
+        $count = 2;
+        for ($i = 0; $i <= $count; $i++) {
             $conversation = factory(\App\Models\Conversation::class)->create([
                 'creator' => 1,
             ]);
 
             $conversation->categories()->attach($faker->randomElement([1, 2, 3]));
+
+            $comment = factory(\App\Models\Comment::class)->make([
+                'commentable_id' => $conversation->id,
+            ]);
+
+            $comment2 = factory(\App\Models\Comment::class)->make([
+                'commentable_id' => $conversation->id,
+                'user_id' => 1,
+            ]);
+
+            $conversation->comments()->saveMany([
+                $comment, $comment2,
+            ]);
         }
 
         $sticky = factory(\App\Models\Conversation::class)->create([

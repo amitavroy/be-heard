@@ -22,7 +22,7 @@ class Conversation extends BaseModel
 
     public function comments()
     {
-        return $this->morphMany('App\Models\Comment', 'commentable');
+        return $this->morphMany('App\Models\Comment', 'commentable')->orderBy('created_at', 'desc');
     }
 
     public static function getConversations($count = 10)
@@ -38,7 +38,7 @@ class Conversation extends BaseModel
     {
         return static::where('published', 1)
             ->where('created_at', '<=', Carbon::now())
-            ->orderBy('updated_at')
-            ->orderBy('sticky', 'desc');
+            ->orderBy('sticky', 'desc')
+            ->orderBy('updated_at', 'desc');
     }
 }
