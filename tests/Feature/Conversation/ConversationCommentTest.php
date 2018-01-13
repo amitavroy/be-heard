@@ -2,7 +2,10 @@
 
 namespace Tests\Feature\Conversation;
 
+use App\Models\Conversation;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Tests\TestHelper;
 
@@ -22,6 +25,18 @@ class ConversationCommentTest extends TestCase
     /** @test */
     public function a_user_can_make_comment()
     {
-//        dd($this->conversations['sticky']);
+        $sticky = $this->conversations['sticky'];
+
+        $postData = [
+            'conversationId' => $sticky->id,
+            'body' => 'Quick brown fox jumps over the candle stick',
+        ];
+
+        $this->actingAs($this->user, 'api')
+            ->post(route('conversation.reply'), $postData);
+
+        $this->actingAs($this->user)
+            ->get(route('conversation.view', $sticky->slug))
+            ->assertSee('Quick brown fox jumps over the candle stick');
     }
 }

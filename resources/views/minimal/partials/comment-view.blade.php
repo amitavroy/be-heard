@@ -1,15 +1,17 @@
 <div class="comment-container" id="{{$comment->id}}">
     <div class="meta">
         Created {{$comment->timeAgo()}} by <strong>{{$comment->user->name}}</strong>
-
-        @if($comment->isOwner())
-            <span class="pull-right">
+        <p>Current {{Auth::user()->name}}</p>
+        <div class="controls">
+            @if($comment->isOwner())
+                <span class="pull-right">
                 <a href="javascript:void(0);"
                    onclick="window.eventBus.$emit('editReplyEvent', {{$comment->id}});"
-                   class="inline-links">Edit</a>
-                <a href="#" class="inline-links">Delete</a>
+                   class="inline-links">Edit comment</a>
+                <a href="#" class="inline-links">Delete comment</a>
             </span>
-        @endif
+            @endif
+        </div>
     </div>
 
     <div class="body">
