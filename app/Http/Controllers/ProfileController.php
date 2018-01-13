@@ -10,5 +10,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+        return view('minimal.pages.profile.profile-index')
+            ->with('user', $user);
     }
 }
