@@ -20,10 +20,20 @@
                 <div role="tabpanel" class="tab-pane active" id="recent-activity">
                     <div class="row">
                         <div class="col-sm-6">
-                            <p>List of conversation user started</p>
+                            <div class="conversations">
+                                <h2>Latest posts</h2>
+                                @foreach($conversations as $conversation)
+                                    @include('minimal.partials.conversation-teaser')
+                                @endforeach
+                            </div>
                         </div>
                         <div class="col-sm-6">
-                            <p>List of comments user added</p>
+                            <div class="comments">
+                                <h2>Latest comments</h2>
+                                @foreach($comments as $comment)
+                                    @include('minimal.partials.comments-teaser')
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -34,6 +34,19 @@ class Conversation extends BaseModel
             ->get();
     }
 
+    public static function getConversationsByUser($user, $count=10)
+    {
+        return static::where('published', 1)
+            ->where('created_at', '<=', Carbon::now())
+            ->where('creator', $user->id)
+            ->orderBy('sticky', 'desc')
+            ->orderBy('updated_at', 'desc')
+            ->with('author')
+            ->with('categories')
+            ->limit($count)
+            ->get();
+    }
+
     public static function conversationQuery()
     {
         return static::where('published', 1)
