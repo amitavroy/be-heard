@@ -77,6 +77,9 @@ class ConversationCommentTest extends TestCase
 
         $sticky = $this->conversations['sticky'];
 
-        $this->assertTrue(true);
+        $postData = [
+            'conversationId' => $sticky->id,
+            'body' => 'Quick brown fox jumps over the candle stick',
+        ];
     }
 }
