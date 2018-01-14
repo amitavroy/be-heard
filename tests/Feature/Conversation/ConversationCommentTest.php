@@ -4,9 +4,7 @@ namespace Tests\Feature\Conversation;
 
 use App\Models\Comment;
 use App\Models\Conversation;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use Tests\TestHelper;
 
@@ -68,18 +66,5 @@ class ConversationCommentTest extends TestCase
         $this->actingAs($this->user, 'api')
             ->post(route('conversation.reply'), $postData)
             ->assertSessionHasErrors('body');
-    }
-
-    /** @test */
-    public function a_user_can_edit_own_comment()
-    {
-        $user = $this->user;
-
-        $sticky = $this->conversations['sticky'];
-
-        $postData = [
-            'conversationId' => $sticky->id,
-            'body' => 'Quick brown fox jumps over the candle stick',
-        ];
     }
 }

@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="{{(Route::is('profile')) ? 'active' : ''}}">
-        <a href="{{route('profile')}}" aria-controls="profile" role="tab" data-toggle="tab">My profile</a>
+        <a href="{{route('profile')}}">My profile</a>
     </li>
 
     <li role="presentation" class="{{(Route::is('profile.recent-activity')) ? 'active' : ''}}">

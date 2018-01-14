@@ -21,5 +21,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('conversations/save', 'ConversationController@store')->name('conversation.save');
     Route::post('conversation/reply/save', 'ConversationController@conversationReply')->name('conversation.reply');
     Route::post('comment/get', 'ConversationController@getCommentById');
-    Route::post('comment/update', 'ConversationController@updateCommentById');
+    Route::post('comment/update', 'ConversationController@updateCommentById')->name('comment.update');
 });
