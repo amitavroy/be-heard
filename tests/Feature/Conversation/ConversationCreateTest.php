@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Conversation;
 
+use App\Models\Category;
 use App\Models\Conversation;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -40,22 +41,27 @@ class ConversationCreateTest extends TestCase
     /** @test */
     public function with_data_conversation_will_be_saved()
     {
-        $conv = factory(Conversation::class)
-            ->make(['title' => 'Test this title with something'])
-            ->toArray();
+        $category = factory(Category::class)->create();
 
-        $this->actingAs($this->user, 'api')
-            ->json('POST', route('conversation.save'), $conv)
-            ->assertStatus(201)
+        $conv = [
+            'title' => 'This is a simple title for the conversation',
+            'body' => 'This is a simple title for the conversation. Should work for body as well.',
+            'categoryId' => 1,
+        ];
+
+        $response = $this->actingAs($this->user, 'api')
+            ->json('POST', route('conversation.save'), $conv);
+
+        $response->assertStatus(201)
             ->assertJson([
                 'data' => [
-                    'title' => 'Test this title with something',
+                    'title' => 'This is a simple title for the conversation',
                     'creator' => $this->user->id,
                 ]
             ]);
 
         $this->actingAs($this->user)
             ->get(route('home'))
-            ->assertSee('Test this title with something');
+            ->assertSee('This is a simple title for the conversation');
     }
 }

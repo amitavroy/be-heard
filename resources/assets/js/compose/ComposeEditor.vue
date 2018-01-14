@@ -13,7 +13,17 @@
             <div class="col-sm-6">
               <div class="extra-fields" v-if="showExtra">
                 <div class="form-group">
-                  <input type="text" name="title" id="title" class="form-control" v-model="title">
+                  <input type="text" name="title" id="title" class="form-control" v-model="title" v-validate="'required'">
+                  <span v-show="errors.has('title')" class="bh error">{{ errors.first('title') }}</span>
+                </div>
+
+                <div class="form-group">
+                  <select name="category" class="form-control" v-model="category" v-validate="'required'">
+                    <option value="1">Restricted</option>
+                    <option value="3">Feedback</option>
+                    <option value="2">Common</option>
+                  </select>
+                  <span v-show="errors.has('category')" class="bh error">{{ errors.first('category') }}</span>
                 </div>
               </div>
               <textarea cols="40" name="body" rows="10" class="form-control" id="add-conversation"
@@ -86,3 +96,9 @@
     }
   }
 </script>
+
+<style>
+  .CodeMirror-scroll {
+    max-height: 200px;
+  }
+</style>

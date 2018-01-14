@@ -12,6 +12,7 @@ export default {
       simplemde: null,
       element: null,
       userText: '',
+      category: null,
       userTextMarkdown: '',
       title: '',
       showExtra: false,
@@ -31,7 +32,8 @@ export default {
         hideIcons: ["guide", "code", "clean-block", "table", "preview", "fullscreen", "side-by-side"],
         autofocus: true,
         promptURLs: true,
-        forceSync: true
+        forceSync: true,
+        status: false
       });
 
       this.userText = markdown.markdown.toHTML(this.simplemde.value());
@@ -53,7 +55,8 @@ export default {
         if (result) {
           let postData = {
             title: this.title,
-            body: this.userText
+            body: this.userText,
+            categoryId: this.category
           };
           axios.post(saveConversationUrl, postData).then(response => {
             location.reload();

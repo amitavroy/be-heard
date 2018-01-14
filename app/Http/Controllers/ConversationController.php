@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Conversation;
 use Carbon\Carbon;
@@ -35,7 +36,8 @@ class ConversationController extends Controller
     {
         $postData = $request->validate([
             'title' => 'required|min:5',
-            'body' => 'required|min: 5'
+            'body' => 'required|min: 5',
+            'categoryId' => 'required|exists:categories,id'
         ]);
 
         $conversation = Conversation::create([
@@ -46,6 +48,8 @@ class ConversationController extends Controller
             'published' => 1,
             'sticky' => 0,
         ]);
+
+        $conversation->categories()->attach($postData['categoryId']);
 
         flash('Conversation was saved.', 'success');
 
