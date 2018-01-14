@@ -1,4 +1,4 @@
-<div class="comment-container" id="{{$comment->id}}">
+<div class="comment-container" id="comment-{{$comment->id}}">
     <div class="meta">
         Created {{$comment->timeAgo()}} by <strong>{{$comment->user->name}}</strong>
 
