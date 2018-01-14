@@ -37,7 +37,5 @@ class Comment extends BaseModel
             ->orderBy('updated_at', 'desc')
             ->limit($count)
             ->get();
-
     }
-
 }

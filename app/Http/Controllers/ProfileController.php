@@ -13,7 +13,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $conversations = Conversation::getConversationsByUser($user,5);
+        $conversations = Conversation::getConversationsByUser($user, 5);
         $comments = Comment::getLatestCommentsOfUser($user, 5);
 
         return view('minimal.pages.profile.profile-index')
