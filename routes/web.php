@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['user.status']], function () {
         Route::get('home', 'HomeController@index')->name('home');
         Route::get('profile', 'ProfileController@index')->name('profile');
+        Route::get('recent-activity', 'ProfileController@recentActivities')->name('profile.recent-activity');
+        Route::get('change-password', 'ProfileController@getChangePassword')->name('profile.change-password');
 
         /*Invite routes*/
         Route::get('invite', 'InviteController@index')->name('invite');
