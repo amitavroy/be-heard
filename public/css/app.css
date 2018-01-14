@@ -11932,3 +11932,22 @@ p {
   padding-bottom: 0;
 }
 
+/*comments*/
+
+.comments h3 {
+  font-size: 1.4rem;
+}
+
+.comments .comment.teaser {
+  border-top: 1px solid #eeeeee;
+}
+
+.comments .comment.teaser .author {
+  margin-top: 17px;
+  padding-right: 10px;
+}
+
+.comments .comment.teaser:nth-child(2) {
+  border-top: 5px solid #eeeeee;
+}
+
