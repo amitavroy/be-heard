@@ -7,7 +7,7 @@
 
 Be-heard is a Forum application which I am building using Laravel and Vuejs. This is my initiative to learn Test Driven development. Currently this project is under active development and by no means is this a complete app.
 
-## Installation
+## Installation steps
 
 To start, first clone the repository
 
